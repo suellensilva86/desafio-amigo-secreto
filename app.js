@@ -7,7 +7,7 @@ function adicionarAmigo() {
         alert('Por favor, insira um nome.');
     } else {
         amigos.push(input);
-        atualizarListaAmigos
+        atualizarListaAmigos()
         cleanCampo();
     }
 }

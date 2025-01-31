@@ -1,4 +1,3 @@
-//O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
 // Array para armazenar os nomes
 let listaAmigos = [];
 
@@ -29,7 +28,7 @@ function atualizarLista() {
     });
 }
 
-// Função para sortear um amigo aleatoriamente
+// Função para sortear um amigo aleatoriamente e limpar a lista
 function sortearAmigo() {
     if (listaAmigos.length === 0) {
         alert("Adicione ao menos um nome antes de sortear.");
@@ -41,4 +40,8 @@ function sortearAmigo() {
 
     let resultado = document.getElementById("resultado");
     resultado.innerHTML = `<li>Amigo sorteado: <strong>${amigoSorteado}</strong></li>`;
+
+    // Resetar a lista após o sorteio
+    listaAmigos = [];
+    atualizarLista(); // Atualiza a interface para limpar a lista
 }

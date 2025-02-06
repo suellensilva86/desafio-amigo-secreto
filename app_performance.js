@@ -22,9 +22,7 @@ function adicionarAmigo(){
         participantes.push(nomeAmigo);//add os participantes
         atualizarLista()
         amigoEl.value = '';//limpa o campo
-    }
-
-   
+    }   
 }
 
 //função para atualizar a lista de participantes na interface
@@ -34,9 +32,23 @@ function atualizarLista(){
     //percorre a array "participantes" e add cada nome á lista
     participantes.forEach (function(participantes){
         let item = document.createElement('li');//cria um novo elemento
-        item.textContent = participantes;
+        item.textContent = participantes;  
         listaAmigosEl.appendChild(item);//add o item criado à lista no html
+        
+        //aplicaçao animação de entrada
+        item.animate(
+            [
+                {opacity: 0, transform:'translateY(-10PX)'},
+                {opacity:1, transform:' translateY(0)'}
+            ],
+            {
+                duration:500,
+                easing: 'ease-out'
+            }
+
+        );
     });
+    
 }
 
 function sortearAmigo(){
@@ -74,6 +86,19 @@ function exibirResultado(sorteado){
     const item = document.createElement('li');
     item.textContent = `O seu Amigo Secreto é: ${sorteado}`;
     resultadoEl.appendChild(item);
+
+    item.animate(
+        [
+            {transform:'scale(1)', opacity:1},
+            {transform: 'scale(1.1)', opacity: 0.8},
+            {transform:'scale(1)', opacity:1}
+        ],
+        {
+            duration: 1000,
+            easing: 'ease-in-out'
+        }
+
+    );
 
 }
 

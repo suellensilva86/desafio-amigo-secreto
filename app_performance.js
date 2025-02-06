@@ -1,6 +1,15 @@
-let participantes = []
-const amigoEl = document.querySelector('#amigo')
-const listaAmigosEl = document.querySelector('#listaAmigos')
+let participantes = [];
+let sorteados = [];
+const amigoEl = document.querySelector('#amigo');
+const listaAmigosEl = document.querySelector('#listaAmigos');
+
+ //add um ouvinte de evento para detectar quando a tecla Enter é pressionada
+ amigoEl.addEventListener('keydown', function(event){
+    if(event.key === 'Enter'){
+        adicionarAmigo();//chama a função para add o amigo
+    }
+});
+
 
 function adicionarAmigo(){
     const nomeAmigo = amigoEl.value.trim();
@@ -14,6 +23,8 @@ function adicionarAmigo(){
         atualizarLista()
         amigoEl.value = '';//limpa o campo
     }
+
+   
 }
 
 //função para atualizar a lista de participantes na interface
@@ -26,4 +37,55 @@ function atualizarLista(){
         item.textContent = participantes;
         listaAmigosEl.appendChild(item);//add o item criado à lista no html
     });
+}
+
+function sortearAmigo(){
+    //verifica se há participantes suficientes
+    if(participantes.length < 2){;
+        alert('Adicione pelo menos dois participantes para sortear!');
+        return;
+    }
+
+    if(sorteados.length === participantes.length){
+        alert('todos os amigos secretos já foram sorteados!');
+        return;
+    }
+    //Embaralhar os participantes
+    participantes.sort(() => Math.random() - 0.5);
+
+    //sortear amigo
+    let sorteado;
+    do{
+        sorteado = participantes[Math.floor(Math.random()*participantes.length)];
+    }while(sorteados.includes(sorteado));//não seja sorteado novamente
+
+    //add à lista de sorteados
+    sorteados.push(sorteado);
+
+    //exibir o sorteado
+    exibirResultado(sorteado);     
+}
+
+function exibirResultado(sorteado){
+    const resultadoEl = document.querySelector('#resultado');
+    resultadoEl.innerHTML = ''; //limpa a lista de resultados antes de add
+
+    //exibir o nome do amigo sorteado
+    const item = document.createElement('li');
+    item.textContent = `O seu Amigo Secreto é: ${sorteado}`;
+    resultadoEl.appendChild(item);
+
+}
+
+function novoSorteio(){
+    //limpa os participantes
+    listaAmigosEl.innerHTML = '';
+    //limpar a lista de resultados anteriores 
+    const resultadoEl = document.querySelector('#resultado');
+    resultadoEl.innerHTML = '';
+    //limpa o array e reinicia a lista de sorteados e participantes
+    sorteados = [];
+    participantes = [];
+    
+    alert('Novo Sorteio iniciado! Adicione participantes e sorteie novamente');
 }

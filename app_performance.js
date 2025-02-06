@@ -25,14 +25,18 @@ function adicionarAmigo(){
     }   
 }
 
+function generateFriendId(friend){
+    return `li_${friend.replaceAll(' ','_')}`
+}
 //função para atualizar a lista de participantes na interface
 function atualizarLista(){
     listaAmigosEl.innerHTML = '';//limpar a lista antes de atualizá-la
 
     //percorre a array "participantes" e add cada nome á lista
-    participantes.forEach (function(participantes){
+    participantes.forEach (function(participante){
         let item = document.createElement('li');//cria um novo elemento
-        item.textContent = participantes;  
+        item.id = generateFriendId(participante)
+        item.textContent = participante;  
         listaAmigosEl.appendChild(item);//add o item criado à lista no html
         
         //aplicaçao animação de entrada
@@ -73,6 +77,9 @@ function sortearAmigo(){
 
     //add à lista de sorteados
     sorteados.push(sorteado);
+    const sortedId = generateFriendId(sorteado)
+    const sortedLiEl = document.querySelector(`#${sortedId}`)
+    sortedLiEl.classList.add('sorteado')
 
     //exibir o sorteado
     exibirResultado(sorteado);     

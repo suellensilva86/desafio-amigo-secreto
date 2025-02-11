@@ -1,4 +1,3 @@
-
 let amigos = [];
 
 function adicionarAmigo() {
@@ -28,6 +27,8 @@ function atualizarLista() {
 }
 
 function sortearAmigo() {
-    const random_number = (Math.floor(Math.random() * (amigos.length + amigos.length))) ;
+    const random_number = Math.floor(Math.random() * amigos.length);
     
 }
+
+

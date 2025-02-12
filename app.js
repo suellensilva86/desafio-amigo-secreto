@@ -26,9 +26,18 @@ function atualizarLista() {
     }
 }
 
-function sortearAmigo() {
-    const random_number = Math.floor(Math.random() * amigos.length);
-    
+function mostrarResultado(rng) {
+    let lista_resultado = document.getElementById("resultado");
+    lista_resultado.innerHTML = "";
+
+    let item = document.createElement("li");
+    item.textContent = amigos[rng];
+
+    lista_resultado.appendChild(item);
 }
 
+function sortearAmigo() {
+    const rng = Math.floor(Math.random() * amigos.length);
 
+    return amigos.length == 0 ? alert("Por favor, insira um nome.") : mostrarResultado(rng);    
+}

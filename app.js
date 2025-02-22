@@ -14,7 +14,25 @@ function adicionarAmigo()
   if(nomeAmigo == '')
   {
     alert('Por favor, digite um nome válido!');
+    return;
   }
   amigosTotal.push(nomeAmigo);
+
   inputAmigo.value = '';
+
+  atualizarListaAmigos();
+}
+
+function atualizarListaAmigos()
+{
+  listaAmigos.innerHTML = '';
+
+  amigosTotal.forEach((amigo, index) => {
+
+    const itemLista = document.Element('li');
+
+    itemLista.textContent = `${index + 1}. ${amigo}`;
+    
+    listaAmigos.appendChild(itemLista);
+  });
 }

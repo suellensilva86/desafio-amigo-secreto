@@ -21,8 +21,6 @@ function adicionarAmigo()
   inputAmigo.value = '';
 
   atualizarListaAmigos();
-
-  alert('Nome Adicionado a lista!');
 }
 
 function atualizarListaAmigos()
@@ -37,4 +35,18 @@ function atualizarListaAmigos()
 
     listaAmigos.appendChild(itemLista);
   });
+}
+
+function sortearAmigo() 
+{
+  if(amigosTotal.length === 0)
+  {
+    alert('Por favor, digite o nome de um amigo!');
+    return;
+  }
+
+  const amigoSecretoIndex = Math.floor(Math.random() * amigosTotal.length);
+  const amigoSecreto = amigosTotal[amigoSecretoIndex];
+
+  resultado.innerHTML = `<p>O seu amigo secreto é: <strong>${amigoSecreto}</strong></p>`;
 }

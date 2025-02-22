@@ -21,6 +21,8 @@ function adicionarAmigo()
   inputAmigo.value = '';
 
   atualizarListaAmigos();
+
+  alert('Nome Adicionado a lista!');
 }
 
 function atualizarListaAmigos()
@@ -29,10 +31,10 @@ function atualizarListaAmigos()
 
   amigosTotal.forEach((amigo, index) => {
 
-    const itemLista = document.Element('li');
+    const itemLista = document.createElement('li');
 
     itemLista.textContent = `${index + 1}. ${amigo}`;
-    
+
     listaAmigos.appendChild(itemLista);
   });
 }

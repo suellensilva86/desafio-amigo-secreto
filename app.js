@@ -16,6 +16,12 @@ function adicionarAmigo() {
 
         // Limpa o campo de input
         inputAmigo.value = '';
+
+        // Remove a mensagem de erro, se existir
+        removerMensagemErro();
+    } else {
+        // Exibe a mensagem de erro
+        exibirMensagemErro('Por favor, insira um nome');
     }
 }
 
@@ -44,6 +50,28 @@ function removerAmigo(index) {
     atualizarListaAmigos();
 }
 
+// Função para exibir mensagem de erro
+function exibirMensagemErro(mensagem) {
+    removerMensagemErro(); // Remove qualquer mensagem de erro existente
+
+    const mensagemErro = document.createElement('p');
+    mensagemErro.textContent = mensagem;
+    mensagemErro.className = 'mensagem-erro';
+    mensagemErro.style.color = 'red';
+    mensagemErro.style.marginTop = '5px';
+
+    const inputWrapper = document.querySelector('.input-wrapper');
+    inputWrapper.appendChild(mensagemErro);
+}
+
+// Função para remover a mensagem de erro
+function removerMensagemErro() {
+    const mensagemErro = document.querySelector('.mensagem-erro');
+    if (mensagemErro) {
+        mensagemErro.remove();
+    }
+}
+
 // Função para sortear amigos (placeholder)
 function sortearAmigo() {
     // Lógica de sorteio a ser implementada
@@ -59,3 +87,6 @@ document.getElementById('amigo').addEventListener('keypress', function(e) {
         adicionarAmigo();
     }
 });
+
+// Adiciona evento para remover a mensagem de erro quando o usuário começa a digitar
+document.getElementById('amigo').addEventListener('input', removerMensagemErro);

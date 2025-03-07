@@ -8,7 +8,7 @@ function adicionarAmigo() {
     const nomeAmigo = inputAmigo.value.trim();
 
     if (!nomeAmigo) {
-        exibirModal('Por favor, insira um nome');
+        exibirModal('Por favor, insira um nome.');
         return;
     }
 
@@ -165,6 +165,3 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-
-

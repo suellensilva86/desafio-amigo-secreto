@@ -120,13 +120,6 @@ document.querySelector('.button-add').addEventListener('click', adicionarAmigo);
 // Adiciona o evento de click ao botão de sortear
 document.querySelector('.button-draw').addEventListener('click', sortearAmigo);
 
-// Adiciona o evento de tecla 'Enter' ao input
-document.getElementById('amigo').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        adicionarAmigo();
-    }
-});
-
 // Adiciona CSS para o modal e o resultado
 const style = document.createElement('style');
 style.textContent = `

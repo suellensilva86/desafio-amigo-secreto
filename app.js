@@ -10,7 +10,7 @@ function adicionarAmigo() {
 
     // Verifica se o nome já existe na lista
     const nomeExistente = Array.from(listaAmigos.children).some(
-        item => item.textContent.toLowerCase() === amigo.toLowerCase()
+        item => item.textContent.replace('❌', '').trim().toLowerCase() === amigo.toLowerCase()
     );
 
     if (nomeExistente) {
@@ -19,7 +19,19 @@ function adicionarAmigo() {
     }
 
     const li = document.createElement('li');
-    li.textContent = amigo;
+    li.textContent = amigo + ' ';
+
+    // Adiciona o emoji de "x" como botão de exclusão
+    const botaoExcluir = document.createTextNode('❌');
+    li.appendChild(botaoExcluir);
+
+    // Adiciona o evento de clique para exclusão
+    li.addEventListener('click', function(e) {
+        if (e.target === li && e.offsetX > li.offsetWidth - 20) {
+            li.remove();
+        }
+    });
+
     listaAmigos.appendChild(li);
 
     document.getElementById('amigo').value = '';

@@ -1,6 +1,40 @@
 //O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
 function adicionarAmigo() {
-    // ... (código anterior permanece o mesmo)
+    const amigo = document.getElementById('amigo').value.trim();
+    const listaAmigos = document.getElementById('listaAmigos');
+
+    if (amigo === '') {
+        alert('Por favor, insira um nome');
+        return;
+    }
+
+    // Verifica se o nome já existe na lista
+    const nomeExistente = Array.from(listaAmigos.children).some(
+        item => item.textContent.replace('❌', '').trim().toLowerCase() === amigo.toLowerCase()
+    );
+
+    if (nomeExistente) {
+        alert('Este nome já foi adicionado à lista');
+        return;
+    }
+
+    const li = document.createElement('li');
+    li.textContent = amigo + ' ';
+
+    // Adiciona o emoji de "x" como botão de exclusão
+    const botaoExcluir = document.createTextNode('❌');
+    li.appendChild(botaoExcluir);
+
+    // Adiciona o evento de clique para exclusão
+    li.addEventListener('click', function(e) {
+        if (e.target === li && e.offsetX > li.offsetWidth - 20) {
+            li.remove();
+        }
+    });
+
+    listaAmigos.appendChild(li);
+
+    document.getElementById('amigo').value = '';
 }
 
 function sortearAmigo() {
@@ -16,32 +50,23 @@ function sortearAmigo() {
     const amigoSorteado = amigos[indiceAleatorio].textContent.replace('❌', '').trim();
 
     const resultado = document.getElementById('resultado');
-    resultado.innerHTML = '';
-    const li = document.createElement('li');
-    li.textContent = `Amigo sorteado: ${amigoSorteado}`;
-    resultado.appendChild(li);
+    resultado.innerHTML = `<li>Amigo sorteado: ${amigoSorteado}</li>`;
 
-    // Oculta o botão de sorteio
+    // Oculta o botão de sorteio e mostra o botão de novo sorteio
     document.querySelector('.button-draw').style.display = 'none';
-
-    // Exibe o botão de novo sorteio
-    const botaoNovoSorteio = document.createElement('button');
-    botaoNovoSorteio.textContent = 'Novo Sorteio';
-    botaoNovoSorteio.classList.add('button-new-draw');
-    botaoNovoSorteio.onclick = novoSorteio;
-    document.querySelector('.button-container').appendChild(botaoNovoSorteio);
+    document.querySelector('.button-new-draw').style.display = 'inline-block';
 }
 
 function novoSorteio() {
     // Limpa o resultado
     document.getElementById('resultado').innerHTML = '';
 
-    // Remove o botão de novo sorteio
-    const botaoNovoSorteio = document.querySelector('.button-new-draw');
-    if (botaoNovoSorteio) {
-        botaoNovoSorteio.remove();
-    }
+    // Oculta o botão de novo sorteio e mostra o botão de sorteio
+    document.querySelector('.button-new-draw').style.display = 'none';
+    document.querySelector('.button-draw').style.display = 'inline-block';
+}
 
-    // Exibe novamente o botão de sorteio
-    document.querySelector('.button-draw').style.display = 'block';
+// Adiciona o evento de clique ao botão de novo sorteio quando a página carrega
+window.onload = function() {
+    document.querySelector('.button-new-draw').addEventListener('click', novoSorteio);
 }

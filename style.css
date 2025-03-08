@@ -161,10 +161,6 @@ ul {
     background-color: var(--color-button-hover);
 }
 
-/* Estilos existentes */
-/* ... (todos os seus estilos atuais ficam aqui) ... */
-
-/* Novos estilos para o botão de novo sorteio */
 .button-new-draw {
     background-color: #4CAF50;
     border: none;
@@ -172,7 +168,7 @@ ul {
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: none;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;

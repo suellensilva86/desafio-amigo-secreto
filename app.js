@@ -8,6 +8,16 @@ function adicionarAmigo() {
         return;
     }
 
+    // Verifica se o nome já existe na lista
+    const nomeExistente = Array.from(listaAmigos.children).some(
+        item => item.textContent.toLowerCase() === amigo.toLowerCase()
+    );
+
+    if (nomeExistente) {
+        alert('Este nome já foi adicionado à lista');
+        return;
+    }
+
     const li = document.createElement('li');
     li.textContent = amigo;
     listaAmigos.appendChild(li);

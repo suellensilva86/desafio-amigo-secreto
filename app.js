@@ -1,6 +1,40 @@
 //O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
 function adicionarAmigo() {
-    // ... (código existente, sem alterações)
+    const amigo = document.getElementById('amigo').value.trim();
+    const listaAmigos = document.getElementById('listaAmigos');
+
+    if (amigo === '') {
+        alert('Por favor, insira um nome');
+        return;
+    }
+
+    // Verifica se o nome já existe na lista
+    const nomeExistente = Array.from(listaAmigos.children).some(
+        item => item.textContent.replace('❌', '').trim().toLowerCase() === amigo.toLowerCase()
+    );
+
+    if (nomeExistente) {
+        alert('Este nome já foi adicionado à lista');
+        return;
+    }
+
+    const li = document.createElement('li');
+    li.textContent = amigo + ' ';
+
+    // Adiciona o emoji de "x" como botão de exclusão
+    const botaoExcluir = document.createTextNode('❌');
+    li.appendChild(botaoExcluir);
+
+    // Adiciona o evento de clique para exclusão
+    li.addEventListener('click', function(e) {
+        if (e.target === this && e.offsetX > this.offsetWidth - 20) {
+            this.remove();
+        }
+    });
+
+    listaAmigos.appendChild(li);
+
+    document.getElementById('amigo').value = '';
 }
 
 function sortearAmigo() {
@@ -36,5 +70,8 @@ function sortearAmigo() {
     }
 }
 
-// Adiciona um event listener para o botão de sorteio
-document.querySelector('.button-draw').addEventListener('click', sortearAmigo);
+// Adiciona event listeners para os botões
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.button-add').addEventListener('click', adicionarAmigo);
+    document.querySelector('.button-draw').addEventListener('click', sortearAmigo);
+});

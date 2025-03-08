@@ -1,38 +1,38 @@
 //O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
 function adicionarAmigo() {
-    // ... (código existente, sem alterações)
-}
-
-function sortearAmigo() {
+    const amigo = document.getElementById('amigo').value.trim();
     const listaAmigos = document.getElementById('listaAmigos');
-    const resultado = document.getElementById('resultado');
 
-    // Verifica se a lista está vazia
-    if (listaAmigos.children.length === 0) {
-        alert('A lista de amigos está vazia. Adicione nomes antes de sortear.');
+    if (amigo === '') {
+        alert('Por favor, insira um nome');
         return;
     }
 
-    // Limpa resultados anteriores
-    resultado.innerHTML = '';
+    // Verifica se o nome já existe na lista
+    const nomeExistente = Array.from(listaAmigos.children).some(
+        item => item.textContent.replace('❌', '').trim().toLowerCase() === amigo.toLowerCase()
+    );
 
-    // Array para armazenar os nomes dos amigos
-    const amigos = Array.from(listaAmigos.children).map(li => li.textContent.replace('❌', '').trim());
+    if (nomeExistente) {
+        alert('Este nome já foi adicionado à lista');
+        return;
+    }
 
-    // Gera um índice aleatório
-    const indiceAleatorio = Math.floor(Math.random() * amigos.length);
-
-    // Seleciona o amigo sorteado
-    const amigoSorteado = amigos[indiceAleatorio];
-
-    // Exibe o resultado
     const li = document.createElement('li');
-    li.textContent = `Amigo sorteado: ${amigoSorteado}`;
-    resultado.appendChild(li);
-}
+    li.textContent = amigo + ' ';
 
-// Adiciona event listener para o botão de sorteio
-document.addEventListener('DOMContentLoaded', function() {
-    const botaoSortear = document.querySelector('.button-draw');
-    botaoSortear.addEventListener('click', sortearAmigo);
-});
+    // Adiciona o emoji de "x" como botão de exclusão
+    const botaoExcluir = document.createTextNode('❌');
+    li.appendChild(botaoExcluir);
+
+    // Adiciona o evento de clique para exclusão
+    li.addEventListener('click', function(e) {
+        if (e.target === li && e.offsetX > li.offsetWidth - 20) {
+            li.remove();
+        }
+    });
+
+    listaAmigos.appendChild(li);
+
+    document.getElementById('amigo').value = '';
+}

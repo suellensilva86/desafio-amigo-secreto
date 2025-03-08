@@ -1,6 +1,40 @@
 //O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
 function adicionarAmigo() {
-    // ... (existing code remains the same)
+    const amigo = document.getElementById('amigo').value.trim();
+    const listaAmigos = document.getElementById('listaAmigos');
+
+    if (amigo === '') {
+        alert('Por favor, insira um nome');
+        return;
+    }
+
+    // Verifica se o nome já existe na lista
+    const nomeExistente = Array.from(listaAmigos.children).some(
+        item => item.textContent.replace('❌', '').trim().toLowerCase() === amigo.toLowerCase()
+    );
+
+    if (nomeExistente) {
+        alert('Este nome já foi adicionado à lista');
+        return;
+    }
+
+    const li = document.createElement('li');
+    li.textContent = amigo + ' ';
+
+    // Adiciona o emoji de "x" como botão de exclusão
+    const botaoExcluir = document.createTextNode('❌');
+    li.appendChild(botaoExcluir);
+
+    // Adiciona o evento de clique para exclusão
+    li.addEventListener('click', function(e) {
+        if (e.target === li && e.offsetX > li.offsetWidth - 20) {
+            li.remove();
+        }
+    });
+
+    listaAmigos.appendChild(li);
+
+    document.getElementById('amigo').value = '';
 }
 
 function sortearAmigo() {
@@ -8,26 +42,16 @@ function sortearAmigo() {
     const amigos = Array.from(listaAmigos.children);
     
     if (amigos.length < 2) {
-        alert('É necessário ter pelo menos 2 amigos na lista para realizar o sorteio.');
+        alert('É necessário adicionar pelo menos 2 amigos para realizar o sorteio.');
         return;
     }
 
+    const indiceAleatorio = Math.floor(Math.random() * amigos.length);
+    const amigoSorteado = amigos[indiceAleatorio].textContent.replace('❌', '').trim();
+
     const resultado = document.getElementById('resultado');
     resultado.innerHTML = '';
-
-    const sorteio = amigos.map(li => li.textContent.replace('❌', '').trim());
-    embaralhar(sorteio);
-
-    for (let i = 0; i < sorteio.length; i++) {
-        const li = document.createElement('li');
-        li.textContent = `${sorteio[i]} -> ${sorteio[(i + 1) % sorteio.length]}`;
-        resultado.appendChild(li);
-    }
-}
-
-function embaralhar(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
+    const li = document.createElement('li');
+    li.textContent = `Amigo sorteado: ${amigoSorteado}`;
+    resultado.appendChild(li);
 }

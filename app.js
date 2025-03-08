@@ -11,8 +11,7 @@ function adicionarAmigo() {
         exibirModal('Por favor, insira um nome.');
         return;
     }
-
-    if (amigos.includes(nomeAmigo)) {
+    else (amigos.includes(nomeAmigo)) {
         exibirModal('Este nome já foi inserido na lista');
         return;
     }

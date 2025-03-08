@@ -1,30 +1,38 @@
 //O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
-function sortearAmigo() {
+function adicionarAmigo() {
+    const amigo = document.getElementById('amigo').value.trim();
     const listaAmigos = document.getElementById('listaAmigos');
-    const resultado = document.getElementById('resultado');
-    
-    // Verifica se a lista está vazia
-    if (listaAmigos.children.length === 0) {
-        alert('A lista de amigos está vazia. Adicione nomes antes de sortear.');
+
+    if (amigo === '') {
+        alert('Por favor, insira um nome');
         return;
     }
 
-    // Limpa resultados anteriores
-    resultado.innerHTML = '';
+    // Verifica se o nome já existe na lista
+    const nomeExistente = Array.from(listaAmigos.children).some(
+        item => item.textContent.replace('❌', '').trim().toLowerCase() === amigo.toLowerCase()
+    );
 
-    // Resto do código de sorteio existente...
-    // (mantenha o código original aqui)
+    if (nomeExistente) {
+        alert('Este nome já foi adicionado à lista');
+        return;
+    }
 
-    // Exemplo de como pode ser o restante da função:
-    const amigos = Array.from(listaAmigos.children).map(li => li.textContent.replace('❌', '').trim());
-    // Lógica de sorteio...
-    // Exibição dos resultados...
+    const li = document.createElement('li');
+    li.textContent = amigo + ' ';
+
+    // Adiciona o emoji de "x" como botão de exclusão
+    const botaoExcluir = document.createTextNode('❌');
+    li.appendChild(botaoExcluir);
+
+    // Adiciona o evento de clique para exclusão
+    li.addEventListener('click', function(e) {
+        if (e.target === li && e.offsetX > li.offsetWidth - 20) {
+            li.remove();
+        }
+    });
+
+    listaAmigos.appendChild(li);
+
+    document.getElementById('amigo').value = '';
 }
-
-// Função adicionarAmigo() existente
-function adicionarAmigo() {
-    // ... (código existente)
-}
-
-// Adicione um event listener para o botão de sorteio, se ainda não existir
-document.querySelector('.button-draw').addEventListener('click', sortearAmigo);
